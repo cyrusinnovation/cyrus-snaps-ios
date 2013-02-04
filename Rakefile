@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 $:.unshift("/Library/RubyMotion/lib")
 require 'motion/project'
+require 'bubble-wrap/core'
+require 'bubble-wrap/http'
+require 'uri'
 
 Motion::Project::App.setup do |app|
   # Use `rake config' to see complete project settings.
