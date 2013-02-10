@@ -15,6 +15,6 @@ class PhotoAnnotation
   end
 
   def url
-    photo.url
+    NSURL.URLWithString(BASE_URI + photo.url)
   end
 end
