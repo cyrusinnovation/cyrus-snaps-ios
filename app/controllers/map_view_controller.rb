@@ -11,7 +11,9 @@ class MapViewController < CyrusSnapsViewController
   end
 
   def showImage(sender)
-    puts "Show IMAGE!!!"
+    url = sender.superview.superview.annotation.url
+    controller = PhotoDetailViewController.alloc.init
+    self.navigationController.pushViewController(controller, animated: true)
   end
 
   private
