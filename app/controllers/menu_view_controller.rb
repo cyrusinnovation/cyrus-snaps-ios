@@ -28,9 +28,12 @@ class MenuViewController < UITableViewController
 
   def menuSections
     @sections ||= [
-      { title: 'Map',    icon: 'frame',  view_controller: MapViewController.alloc.init },
-      { title: 'Album',  icon: 'album',  view_controller: AlbumViewController.alloc.init },
-      { title: 'Camera', icon: 'camera', view_controller: CameraViewController.alloc.init }
+      { title: 'Map',
+        icon: 'frame',
+        view_controller: MapViewController.alloc.init },
+      { title: 'Upload',
+        icon: 'camera',
+        view_controller: UploadViewController.alloc.init }
     ]
   end
 
