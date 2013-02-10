@@ -8,11 +8,15 @@ class MapViewController < CyrusSnapsViewController
   def mapView(mapView, viewForAnnotation: annotation)
     return nil unless annotation.is_a?(PhotoAnnotation)
     PhotoAnnotationView.forAnnotation(mapView, annotation).tap do |view|
-      view.detailsButton.addTarget(self, action: :'showImage:', forControlEvents: UIControlEventTouchUpInside)
+      view.detailsButton.addTarget(
+        self,
+        action: :'showPhotoDetailView:',
+        forControlEvents: UIControlEventTouchUpInside
+      )
     end
   end
 
-  def showImage(sender)
+  def showPhotoDetailView(sender)
     url = sender.superview.superview.annotation.url
     controller = PhotoDetailViewController.alloc.initWithURL(url)
     self.navigationController.pushViewController(controller, animated: true)

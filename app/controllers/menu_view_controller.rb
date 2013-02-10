@@ -9,14 +9,16 @@ class MenuViewController < UITableViewController
     @current_section = 0
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone
     tableView.backgroundColor = UIColor.clearColor
-    tableView.backgroundView = UIImageView.alloc.initWithImage(UIImage.imageNamed('bgGreyTexture'))
+    tableView.backgroundView =
+      UIImageView.alloc.initWithImage(UIImage.imageNamed('bgGreyTexture'))
 
     switchToView(0)
   end
 
   def switchToView(index)
     navigationController.view.frame = self.view.bounds
-    navigationController.setViewControllers([menuSections[index][:view_controller]], animated: true)
+    controller = [menuSections[index][:view_controller]]
+    navigationController.setViewControllers(controller, animated: true)
     self.view.addSubview(navigationController.view)
   end
 
@@ -26,9 +28,9 @@ class MenuViewController < UITableViewController
 
   def menuSections
     @sections ||= [
-      { :title => 'Map',    :icon => 'frame',  :view_controller => MapViewController.alloc.init },
-      { :title => 'Album',  :icon => 'album',  :view_controller => AlbumViewController.alloc.init },
-      { :title => 'Camera', :icon => 'camera', :view_controller => CameraViewController.alloc.init }
+      { title: 'Map',    icon: 'frame',  view_controller: MapViewController.alloc.init },
+      { title: 'Album',  icon: 'album',  view_controller: AlbumViewController.alloc.init },
+      { title: 'Camera', icon: 'camera', view_controller: CameraViewController.alloc.init }
     ]
   end
 
