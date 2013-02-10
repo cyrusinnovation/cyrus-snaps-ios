@@ -1,11 +1,20 @@
 class PhotoAnnotation
-  def initWithPhoto(photo)
-    @coordinate = CLLocationCoordinate2DMake(photo.latitude, photo.longitude)
+  attr_reader :photo
 
+  def initWithPhoto(photo)
+    @photo = photo
     self
   end
 
   def coordinate
-    @coordinate
+    CLLocationCoordinate2DMake(photo.latitude, photo.longitude)
+  end
+
+  def title
+    "Untitled Photo"
+  end
+
+  def url
+    photo.url
   end
 end

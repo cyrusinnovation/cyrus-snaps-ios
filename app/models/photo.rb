@@ -1,5 +1,5 @@
 class Photo
-  attr_accessor :latitude, :longitude
+  attr_accessor :latitude, :longitude, :url
 
   def initWithJSON(json)
     json.each do |k, v|
