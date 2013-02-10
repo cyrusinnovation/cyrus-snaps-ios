@@ -7,7 +7,9 @@ class MapViewController < CyrusSnapsViewController
 
   def mapView(mapView, viewForAnnotation: annotation)
     return nil unless annotation.is_a?(PhotoAnnotation)
-    dequeueOrInitAnnotationView(mapView, annotation)
+    PhotoAnnotationView.forAnnotation(mapView, annotation).tap do |view|
+      view.detailsButton.addTarget(self, action: :'showImage:', forControlEvents: UIControlEventTouchUpInside)
+    end
   end
 
   def showImage(sender)
@@ -17,24 +19,6 @@ class MapViewController < CyrusSnapsViewController
   end
 
   private
-
-  ANNOTATION_VIEW_REUSE_ID = "AnnotationView"
-
-  def dequeueOrInitAnnotationView(mapView, annotation)
-    mapView.dequeueReusableAnnotationViewWithIdentifier(ANNOTATION_VIEW_REUSE_ID) ||
-      MKPinAnnotationView.alloc.initWithAnnotation(
-        annotation, reuseIdentifier: ANNOTATION_VIEW_REUSE_ID).tap do |view|
-
-      view.canShowCallout = true
-      view.rightCalloutAccessoryView = detailsButton
-      end
-  end
-
-  def detailsButton
-    @detailsButton ||= UIButton.buttonWithType(UIButtonTypeDetailDisclosure).tap do |b|
-      b.addTarget(self, action: :'showImage:', forControlEvents: UIControlEventTouchUpInside)
-    end
-  end
 
   def photoMapView
     @photoMapView ||= MKMapView.alloc.init.tap do |map|
