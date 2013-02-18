@@ -15,6 +15,7 @@ class MenuTableViewCell < UITableViewCell
   def initWithStyle(style, reuseIdentifier: identifier)
     super
 
+    self.selectionStyle = UITableViewCellSelectionStyleNone
     self.contentView.addSubview(drawMenuLabel)
     self.contentView.addSubview(drawMenuIcon)
     self.contentView.addSubview(drawSeparatorImage)
