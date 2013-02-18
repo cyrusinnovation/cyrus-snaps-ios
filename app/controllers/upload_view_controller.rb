@@ -17,14 +17,22 @@ class UploadViewController < CyrusSnapsViewController
     self.dismissViewControllerAnimated(true, completion: nil)
   end
 
+  def textFieldShouldReturn(textField)
+    textField.resignFirstResponder
+    false
+  end
+
   private
 
   def titleTextfield
     @titleTextfield ||= UITextField.alloc.init.tap do |field|
-      field.backgroundColor = UIColor.whiteColor
+      field.autocapitalizationType = UITextAutocapitalizationTypeWords
       field.borderStyle = UITextBorderStyleRoundedRect
-      field.frame = [[10, 10], [self.view.frame.size.width - 20, 30]]
+      field.delegate = self
+      field.enablesReturnKeyAutomatically = true
+      field.frame = [[10, 10], [self.view.frame.size.width - 20, 25]]
       field.placeholder = "Title"
+      field.returnKeyType = UIReturnKeyDone
     end
   end
 
