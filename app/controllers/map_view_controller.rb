@@ -3,6 +3,7 @@ class MapViewController < CyrusSnapsViewController
     super
     annotatePhotoMapView
     self.view.addSubview(photoMapView)
+    self.navigationItem.title = 'Map'
   end
 
   def mapView(mapView, viewForAnnotation: annotation)

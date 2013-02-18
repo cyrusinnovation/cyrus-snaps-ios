@@ -2,7 +2,6 @@ class CyrusSnapsViewController < UIViewController
   def viewDidLoad
     super
 
-    self.navigationItem.title = 'Cyrus Snaps'
     self.navigationItem.leftBarButtonItem =
       UIBarButtonItem.alloc.initWithCustomView(menuButton)
   end

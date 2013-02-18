@@ -11,6 +11,7 @@ class PhotoDetailViewController < UIViewController
     super
     self.view.backgroundColor = UIColor.blackColor
     self.view.addSubview(imageView)
+    self.navigationItem.title = 'Photo'
   end
 
   private

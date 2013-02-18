@@ -1,6 +1,7 @@
 class UploadViewController < CyrusSnapsViewController
   def viewDidLoad
     super
+    self.navigationItem.title = 'Upload'
     self.view.backgroundColor = UIColor.redColor
     self.view.addSubview(titleTextfield)
     self.view.addSubview(chooseButton)
