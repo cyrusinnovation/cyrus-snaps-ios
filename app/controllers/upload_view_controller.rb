@@ -3,13 +3,18 @@ class UploadViewController < CyrusSnapsViewController
     super
     self.navigationItem.title = 'Upload'
     self.view.backgroundColor = UIColor.redColor
-    self.view.addSubview(titleTextfield)
+    self.view.addSubview(titleTextField)
     self.view.addSubview(chooseButton)
+    self.view.addSubview(uploadButton)
     self.view.addSubview(imageView)
   end
 
   def choosePicture(sender)
     self.presentViewController(imagePicker, animated: true, completion: nil)
+  end
+
+  def uploadPhoto(sender)
+    p "TODO: Handle photo upload"
   end
 
   def imagePickerController(picker, didFinishPickingMediaWithInfo: info)
@@ -24,8 +29,8 @@ class UploadViewController < CyrusSnapsViewController
 
   private
 
-  def titleTextfield
-    @titleTextfield ||= UITextField.alloc.init.tap do |field|
+  def titleTextField
+    @titleTextField ||= UITextField.alloc.init.tap do |field|
       field.autocapitalizationType = UITextAutocapitalizationTypeWords
       field.borderStyle = UITextBorderStyleRoundedRect
       field.delegate = self
@@ -51,6 +56,15 @@ class UploadViewController < CyrusSnapsViewController
       b.sizeToFit
       b.frame = CGRect.new([10, 365], b.frame.size)
       b.addTarget(self, action: :'choosePicture:', forControlEvents: UIControlEventTouchUpInside)
+    end
+  end
+
+  def uploadButton
+    @uploadButton ||= UIButton.buttonWithType(UIButtonTypeRoundedRect).tap do |b|
+      b.setTitle("Upload", forState: UIControlStateNormal)
+      b.sizeToFit
+      b.frame = CGRect.new([200, 365], b.frame.size)
+      b.addTarget(self, action: :'uploadPhoto:', forControlEvents: UIControlEventTouchUpInside)
     end
   end
 
