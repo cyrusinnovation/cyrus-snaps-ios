@@ -1,5 +1,3 @@
-BASE_URI = "http://localhost:9292"
-
 class AppDelegate
   def application(application, didFinishLaunchingWithOptions: launchOptions)
     @window = UIWindow.alloc.init.tap do |w|

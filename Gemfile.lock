@@ -7,7 +7,6 @@ GEM
     addressable (2.3.3)
     afmotion (0.4)
       motion-cocoapods (>= 1.2.1)
-    bubble-wrap (1.1.5)
     cocoapods (0.16.3)
       activesupport (~> 3.2.6)
       colored (~> 1.2)
@@ -50,5 +49,4 @@ PLATFORMS
 
 DEPENDENCIES
   afmotion (~> 0.4)
-  bubble-wrap (~> 1.1.5)
   motion-cocoapods (~> 1.2.1)

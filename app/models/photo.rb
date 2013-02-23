@@ -11,10 +11,14 @@ class Photo
   end
 
   def upload(&block)
-    client = AFMotion::Client.build(BASE_URI)
-    client.multipart.post('/photos', { :photo => payload }) do |result, form_data|
+    APIClient.instance.multipart.post('/photos', payload) do |result, form_data|
       if form_data
-        form_data.appendPartWithFileData(imageData, name: "photo[image]", fileName:"avatar.jpg", mimeType: "image/jpeg")
+        form_data.appendPartWithFileData(
+          imageData,
+          name: "photo[image]",
+          fileName:"avatar.jpg",
+          mimeType: "image/jpeg"
+        )
       elsif result.success?
         block.call("SUCCESS!!!")
       else
@@ -24,12 +28,13 @@ class Photo
   end
 
   def self.find_all(&block)
-    BubbleWrap::HTTP.get(BASE_URI + '/photos') do |response|
-      if response.body
-        BubbleWrap::JSON.parse(response.body.to_str).each do |json|
+    APIClient.instance.get('/photos') do |response|
+      if response.success?
+        response.object.each do |json|
           block.call(self.alloc.initWithJSON(json))
         end
       else
+        p "ERROR: #{response.error.localizedDescription}"
         block.call(NullObject.new)
       end
     end
@@ -42,9 +47,6 @@ class Photo
   end
 
   def payload
-    {
-      "latitude" => latitude,
-      "longitude" => longitude
-    }
+    { :photo => { :latitude => latitude, :longitude => longitude } }
   end
 end
