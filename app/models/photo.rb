@@ -16,7 +16,7 @@ class Photo
         form_data.appendPartWithFileData(
           imageData,
           name: "photo[image]",
-          fileName:"avatar.jpg",
+          fileName:"#{filename}.jpg",
           mimeType: "image/jpeg"
         )
       elsif result.success?
@@ -48,5 +48,12 @@ class Photo
 
   def payload
     { :photo => { :latitude => latitude, :longitude => longitude } }
+  end
+
+  def filename
+    title.gsub(/[^\w\s_-]+/, '') # keep only basic letters and digits
+         .gsub(/(^|\b\s)\s+($|\s?\b)/, '\\1\\2') # remove extra whitespace
+         .gsub(/\s+/, '-') # replace remaining spaces with dashes
+         .downcase
   end
 end
