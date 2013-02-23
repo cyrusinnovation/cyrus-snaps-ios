@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 $:.unshift("/Library/RubyMotion/lib")
 require 'motion/project'
+require 'motion-cocoapods'
+require 'afmotion'
 require 'bubble-wrap/core'
 require 'bubble-wrap/http'
 
@@ -8,6 +10,10 @@ Motion::Project::App.setup do |app|
   # Use `rake config' to see complete project settings.
   app.name = 'cyrus-snaps'
   app.frameworks = ['CoreLocation', 'MapKit']
+
+  app.pods do
+    pod 'AFNetworking'
+  end
 end
 
 desc "Open latest crash log"
