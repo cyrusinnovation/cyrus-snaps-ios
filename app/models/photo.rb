@@ -1,5 +1,5 @@
 class Photo
-  attr_accessor :latitude, :longitude, :url
+  attr_accessor :image, :latitude, :longitude, :title, :url
 
   def initWithJSON(json)
     json.each do |k, v|
@@ -8,6 +8,19 @@ class Photo
     end
 
     self
+  end
+
+  def upload(&block)
+    client = AFMotion::Client.build(BASE_URI)
+    client.multipart.post('/photos', { :photo => payload }) do |result, form_data|
+      if form_data
+        form_data.appendPartWithFileData(imageData, name: "photo[image]", fileName:"avatar.jpg", mimeType: "image/jpeg")
+      elsif result.success?
+        block.call("SUCCESS!!!")
+      else
+        block.call("FAILURE!!! #{result.error.localizedDescription}")
+      end
+    end
   end
 
   def self.find_all(&block)
@@ -20,5 +33,18 @@ class Photo
         block.call(NullObject.new)
       end
     end
+  end
+
+  private
+
+  def imageData
+    UIImage.UIImageJPEGRepresentation(image, 1)
+  end
+
+  def payload
+    {
+      "latitude" => latitude,
+      "longitude" => longitude
+    }
   end
 end

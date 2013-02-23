@@ -14,7 +14,16 @@ class UploadViewController < CyrusSnapsViewController
   end
 
   def uploadPhoto(sender)
-    p "TODO: Handle photo upload"
+    photo = Photo.alloc.init.tap do |p|
+      p.title = titleTextField.text
+      p.latitude = location_manager.location.coordinate.latitude
+      p.longitude = location_manager.location.coordinate.longitude
+      p.image = imageView.image
+    end
+
+    photo.upload do |response|
+      p response
+    end
   end
 
   def imagePickerController(picker, didFinishPickingMediaWithInfo: info)
@@ -72,6 +81,14 @@ class UploadViewController < CyrusSnapsViewController
     @imagePicker ||= UIImagePickerController.alloc.init.tap do |picker|
       picker.setSourceType(UIImagePickerControllerSourceTypePhotoLibrary)
       picker.delegate = self
+    end
+  end
+
+  def location_manager
+    @location_manager ||= CLLocationManager.alloc.init.tap do |lm|
+      lm.desiredAccuracy = KCLLocationAccuracyBest
+      lm.purpose = "Your current location will be associated with the photo."
+      lm.startUpdatingLocation
     end
   end
 end
