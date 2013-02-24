@@ -11,7 +11,7 @@ class PhotoAnnotation
   end
 
   def title
-    "Untitled Photo"
+    photo.title || "Untitled Photo"
   end
 
   def url

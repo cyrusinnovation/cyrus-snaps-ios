@@ -47,7 +47,8 @@ class Photo
   end
 
   def payload
-    { :photo => { :latitude => latitude, :longitude => longitude } }
+    { :photo => {
+      :title => title, :latitude => latitude, :longitude => longitude } }
   end
 
   def filename
