@@ -9,7 +9,7 @@ class PhotoDetailViewController < UIViewController
 
   def viewDidLoad
     super
-    self.view.backgroundColor = UIColor.blackColor
+    self.view.backgroundColor = UIColor.whiteColor
     self.view.addSubview(imageView)
     self.navigationItem.title = 'Photo'
   end

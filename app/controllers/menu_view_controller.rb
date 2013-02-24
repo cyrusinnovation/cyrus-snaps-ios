@@ -1,16 +1,11 @@
 class MenuViewController < UITableViewController
-  MENU_ICON_HEIGHT = 60
-  MENU_HEIGHT = MENU_ICON_HEIGHT + 30 + 5 - 2
-  MENU_WIDTH = 80
-
   def viewDidLoad
     super
 
     @current_section = 0
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone
-    tableView.backgroundColor = UIColor.clearColor
-    tableView.backgroundView =
-      UIImageView.alloc.initWithImage(UIImage.imageNamed('bgGreyTexture'))
+    tableView.backgroundColor =
+      UIColor.colorWithRed(115/255.0, green: 115/255.0, blue: 35/255.0, alpha: 1.0)
 
     switchToView(0)
   end
@@ -23,13 +18,16 @@ class MenuViewController < UITableViewController
   end
 
   def navigationController
-    @navigationController ||= UINavigationController.alloc.init
+    @navigationController ||= UINavigationController.alloc.init.tap do |nc|
+      nc.navigationBar.tintColor =
+        UIColor.colorWithRed(190/255.0, green: 202/255.0, blue: 46/255.0, alpha: 1.0)
+    end
   end
 
   def menuSections
     @sections ||= [
       { title: 'Map',
-        icon: 'frame',
+        icon: 'mapMarker',
         view_controller: MapViewController.alloc.init },
       { title: 'Upload',
         icon: 'camera',
@@ -45,16 +43,11 @@ class MenuViewController < UITableViewController
     menuSections.count
   end
 
-  def tableView(tableView, heightForRowAtIndexPath: indexPath)
-    MENU_HEIGHT
-  end
-
   def tableView(tableView, cellForRowAtIndexPath: indexPath)
-    title    = menuSections[indexPath.row][:title]
-    icon     = menuSections[indexPath.row][:icon]
-    selected = @current_section == indexPath.row
+    title = menuSections[indexPath.row][:title]
+    icon  = menuSections[indexPath.row][:icon]
 
-    MenuTableViewCell.forMenuItem(title, icon, selected, tableView)
+    MenuTableViewCell.forMenuItem(title, icon, tableView)
   end
 
   def tableView(tableView, didSelectRowAtIndexPath: indexPath)
