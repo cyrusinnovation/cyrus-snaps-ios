@@ -4,10 +4,9 @@ class MenuViewController < UITableViewController
 
     @current_section = 0
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone
-    tableView.backgroundColor =
-      UIColor.colorWithRed(115/255.0, green: 115/255.0, blue: 35/255.0, alpha: 1.0)
+    tableView.backgroundColor = UIColor.grayColor
 
-    switchToView(0)
+    switchToView(@current_section)
   end
 
   def switchToView(index)
@@ -27,10 +26,10 @@ class MenuViewController < UITableViewController
   def menuSections
     @sections ||= [
       { title: 'Map',
-        icon: 'mapMarker',
+        icon: 'globe',
         view_controller: MapViewController.alloc.init },
       { title: 'Upload',
-        icon: 'camera',
+        icon: 'camera-with-picture',
         view_controller: UploadViewController.alloc.init }
     ]
   end
@@ -41,6 +40,10 @@ class MenuViewController < UITableViewController
 
   def tableView(tableView, numberOfRowsInSection: section)
     menuSections.count
+  end
+
+  def tableView(tableView, heightForRowAtIndexPath: indexPath)
+    MenuTableViewCell::CELL_HEIGHT
   end
 
   def tableView(tableView, cellForRowAtIndexPath: indexPath)
@@ -55,6 +58,7 @@ class MenuViewController < UITableViewController
 
     @current_section = indexPath.row
     tableView.reloadData
+    tableView.cellForRowAtIndexPath(indexPath).selected = true
     switchToView(@current_section)
   end
 end
