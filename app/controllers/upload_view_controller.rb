@@ -1,11 +1,14 @@
 class UploadViewController < CyrusSnapsViewController
   def viewDidLoad
     super
+
     self.navigationItem.title = 'Upload'
+    self.navigationItem.rightBarButtonItem = uploadButton
+
     self.view.backgroundColor = UIColor.colorWithRed(115/255.0, green: 115/255.0, blue: 35/255.0, alpha: 1.0)
+
     self.view.addSubview(titleTextField)
     self.view.addSubview(chooseButton)
-    self.view.addSubview(uploadButton)
     self.view.addSubview(imageView)
   end
 
@@ -79,17 +82,12 @@ class UploadViewController < CyrusSnapsViewController
   end
 
   def uploadButton
-    @uploadButton ||= UIButton.buttonWithType(UIButtonTypeCustom).tap do |b|
-      b.setTitle("Upload", forState: UIControlStateNormal)
-      b.setBackgroundColor(UIColor.colorWithRed(190/255.0, green: 202/255.0, blue: 46/255.0, alpha: 1.0))
-      b.layer.cornerRadius = 8;
-      b.layer.borderWidth = 1;
-      b.sizeToFit
-      height = b.frame.size.height + 20
-      width = b.frame.size.width + 20
-      b.frame = CGRect.new([200, 365], [width, height])
-      b.addTarget(self, action: :'uploadPhoto:', forControlEvents: UIControlEventTouchUpInside)
-    end
+    @uploadButton ||= UIBarButtonItem.alloc.initWithTitle(
+      'Upload',
+      style: UIBarButtonItemStylePlain,
+      target: self,
+      action: :'uploadPhoto:'
+    )
   end
 
   def imagePicker
