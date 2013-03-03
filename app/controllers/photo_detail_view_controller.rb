@@ -24,7 +24,13 @@ class PhotoDetailViewController < UIViewController
   def imageView
     @imageView ||= UIImageView.alloc.initWithImage(image).tap do |view|
       view.frame = self.view.bounds
-      view.contentMode = UIViewContentModeCenter
+      view.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)
+
+      view.contentMode = if image.size.width > image.size.height
+        UIViewContentModeScaleAspectFit
+      else
+        UIViewContentModeScaleAspectFill
+      end
     end
   end
 end
