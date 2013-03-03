@@ -19,10 +19,8 @@ class Photo
           fileName:"#{filename}.jpg",
           mimeType: "image/jpeg"
         )
-      elsif result.success?
-        block.call("SUCCESS!!!")
       else
-        block.call("FAILURE!!! #{result.error.localizedDescription}")
+        block.call(result)
       end
     end
   end

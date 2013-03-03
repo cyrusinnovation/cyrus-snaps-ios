@@ -9,6 +9,8 @@ class UploadViewController < CyrusSnapsViewController
 
     self.view.addSubview(titleTextField)
     self.view.addSubview(imageView)
+    self.view.addSubview(activity)
+
   end
 
   def choosePicture(sender)
@@ -16,6 +18,8 @@ class UploadViewController < CyrusSnapsViewController
   end
 
   def uploadPhoto(sender)
+    activity.startAnimating
+
     photo = Photo.alloc.init.tap do |p|
       p.title = titleTextField.text
       p.latitude = location_manager.location.coordinate.latitude
@@ -24,7 +28,15 @@ class UploadViewController < CyrusSnapsViewController
     end
 
     photo.upload do |response|
-      p response
+      if response.success?
+        titleTextField.text = nil
+        imageView.image = nil
+        imageView.addSubview(clickHereLabel)
+      else
+        puts("FAILURE!!! #{response.error.localizedDescription}")
+      end
+
+      activity.stopAnimating
     end
   end
 
@@ -40,6 +52,23 @@ class UploadViewController < CyrusSnapsViewController
   end
 
   private
+
+  def activity
+    @activity ||= UIActivityIndicatorView.alloc.init.tap do |view|
+      view.frame = [[0, 0], self.view.size]
+      view.backgroundColor = UIColor.colorWithWhite(0, alpha: 0.8)
+      view.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge
+      view.addSubview(UILabel.alloc.init.tap do |label|
+        label.font = label.font.fontWithSize(36)
+        label.adjustsFontSizeToFitWidth = true
+        label.frame = [[0, self.view.frame.size.height / 3], [self.view.frame.size.width, 50]]
+        label.textColor = UIColor.whiteColor
+        label.backgroundColor = UIColor.clearColor
+        label.text = "Uploading"
+        label.textAlignment = UITextAlignmentCenter
+      end)
+    end
+  end
 
   def titleTextField
     @titleTextField ||= UITextField.alloc.init.tap do |field|
