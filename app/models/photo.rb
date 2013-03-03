@@ -11,6 +11,8 @@ class Photo
   end
 
   def upload(&block)
+    return unless valid?
+
     APIClient.instance.multipart.post('/photos', payload) do |result, form_data|
       if form_data
         form_data.appendPartWithFileData(
@@ -36,6 +38,10 @@ class Photo
         block.call(NullObject.new)
       end
     end
+  end
+
+  def valid?
+    title != nil && title != '' && image != nil
   end
 
   private

@@ -10,7 +10,6 @@ class UploadViewController < CyrusSnapsViewController
     self.view.addSubview(titleTextField)
     self.view.addSubview(imageView)
     self.view.addSubview(activity)
-
   end
 
   def choosePicture(sender)
@@ -35,9 +34,9 @@ class UploadViewController < CyrusSnapsViewController
       else
         puts("FAILURE!!! #{response.error.localizedDescription}")
       end
-
-      activity.stopAnimating
     end
+
+    activity.stopAnimating
   end
 
   def imagePickerController(picker, didFinishPickingMediaWithInfo: info)
