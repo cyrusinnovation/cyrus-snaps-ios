@@ -1,0 +1,44 @@
+= Cyrus Snaps
+Example photo sharing app written using RubyMotion and Sinatra. This is the
+RubyMotion half of the project.
+
+== Implemented Features & Feature Ideas
+See the API[https://github.com/bnadlerjr/cyrus-snaps-api] project for details.
+
+== Development Setup
+Install dependencies using Bundler:
+<tt>bundle install</tt>
+
+In order to test the app in the simulator, you'll need the API project running.
+Clone the API[https://github.com/bnadlerjr/cyrus-snaps-api] project and start
+the server using <tt>bundle exec rackup config.ru</tt>.
+
+Note that if you run the API project with a different port than the default,
+you'll have to adjust the <tt>BASE_URI</tt> constant accordingly in
+<tt>app/models/api_client.rb</tt>
+
+Run the RubyMotion app as normal using <tt>rake</tt>.
+
+== Deploying
+This is still a work in progress. The app has not been deployed yet, use the
+iOS simulator to play around with it.
+
+== License
+Copyright (c) 2013 Bob Nadler, Jr.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
