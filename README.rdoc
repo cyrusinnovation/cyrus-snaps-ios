@@ -3,14 +3,14 @@ Example photo sharing app written using RubyMotion and Sinatra. This is the
 RubyMotion half of the project.
 
 == Implemented Features & Feature Ideas
-See the API[https://github.com/bnadlerjr/cyrus-snaps-api] project for details.
+See the API[https://github.com/cyrusinnovation/cyrus-snaps-api] project for details.
 
 == Development Setup
 Install dependencies using Bundler:
 <tt>bundle install</tt>
 
 In order to test the app in the simulator, you'll need the API project running.
-Clone the API[https://github.com/bnadlerjr/cyrus-snaps-api] project and start
+Clone the API[https://github.com/cyrusinnovation/cyrus-snaps-api] project and start
 the server using <tt>bundle exec rackup config.ru</tt>.
 
 Note that if you run the API project with a different port than the default,
