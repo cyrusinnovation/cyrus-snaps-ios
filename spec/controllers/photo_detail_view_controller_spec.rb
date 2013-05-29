@@ -1,6 +1,6 @@
 describe "photo detail view controller" do
-  PORTRAIT_IMAGE  = File.expand_path("../resources/portrait.png", __FILE__)
-  LANDSCAPE_IMAGE = File.expand_path("../resources/landscape.png", __FILE__)
+  PORTRAIT_IMAGE  = File.expand_path("../../resources/portrait.png", __FILE__)
+  LANDSCAPE_IMAGE = File.expand_path("../../resources/landscape.png", __FILE__)
 
   describe "general properties" do
     before do
