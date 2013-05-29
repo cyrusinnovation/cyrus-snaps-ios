@@ -12,23 +12,13 @@ class Photo
 
   def upload(&block)
     return unless valid?
-
-    APIClient.instance.multipart.post('/photos', payload) do |result, form_data|
-      if form_data
-        form_data.appendPartWithFileData(
-          imageData,
-          name: "photo[image]",
-          fileName:"#{filename}.jpg",
-          mimeType: "image/jpeg"
-        )
-      else
-        block.call(result)
-      end
+    APIClient.instance.post_photo(title, latitude, longitude, image) do |result|
+      block.call(result)
     end
   end
 
   def self.find_all(&block)
-    APIClient.new.get_photos do |photo|
+    APIClient.instance.get_photos do |photo|
       photo.each do |json|
         block.call(self.alloc.initWithJSON(json))
       end
@@ -37,23 +27,5 @@ class Photo
 
   def valid?
     title != nil && title != '' && image != nil
-  end
-
-  private
-
-  def imageData
-    UIImage.UIImageJPEGRepresentation(image, 1)
-  end
-
-  def payload
-    { :photo => {
-      :title => title, :latitude => latitude, :longitude => longitude } }
-  end
-
-  def filename
-    title.gsub(/[^\w\s_-]+/, '') # keep only basic letters and digits
-         .gsub(/(^|\b\s)\s+($|\s?\b)/, '\\1\\2') # remove extra whitespace
-         .gsub(/\s+/, '-') # replace remaining spaces with dashes
-         .downcase
   end
 end
