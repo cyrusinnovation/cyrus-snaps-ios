@@ -28,14 +28,9 @@ class Photo
   end
 
   def self.find_all(&block)
-    APIClient.instance.get('/photos') do |response|
-      if response.success?
-        response.object.each do |json|
-          block.call(self.alloc.initWithJSON(json))
-        end
-      else
-        p "ERROR: #{response.error.localizedDescription}"
-        block.call(NullObject.new)
+    APIClient.new.get_photos do |photo|
+      photo.each do |json|
+        block.call(self.alloc.initWithJSON(json))
       end
     end
   end
