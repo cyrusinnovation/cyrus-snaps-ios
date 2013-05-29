@@ -1,5 +1,7 @@
 class AppDelegate
   def application(application, didFinishLaunchingWithOptions: launchOptions)
+    return true if RUBYMOTION_ENV == 'test'
+
     @window = UIWindow.alloc.init.tap do |w|
       w.frame = UIScreen.mainScreen.bounds
       w.makeKeyAndVisible
