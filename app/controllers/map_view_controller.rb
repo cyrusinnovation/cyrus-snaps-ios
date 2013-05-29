@@ -36,6 +36,7 @@ class MapViewController < CyrusSnapsViewController
       map.showsUserLocation = true
       map.userTrackingMode = MKUserTrackingModeFollow
       map.delegate = self
+      map.accessibilityLabel = 'Map View'
     end
   end
 
