@@ -23,6 +23,7 @@ class PhotoDetailViewController < UIViewController
 
   def imageView
     @imageView ||= UIImageView.alloc.initWithImage(image).tap do |view|
+      view.accessibilityLabel = 'Photo'
       view.frame = self.view.bounds
       view.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)
 
