@@ -2,6 +2,8 @@ class AppDelegate
   def application(application, didFinishLaunchingWithOptions: launchOptions)
     return true if RUBYMOTION_ENV == 'test'
 
+    APIClient.register(:photo_api, PhotoClient.new)
+
     @window = UIWindow.alloc.init.tap do |w|
       w.frame = UIScreen.mainScreen.bounds
       w.makeKeyAndVisible
