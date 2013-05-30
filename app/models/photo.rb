@@ -12,13 +12,13 @@ class Photo
 
   def upload(&block)
     return unless valid?
-    APIClient.instance.post_photo(title, latitude, longitude, image) do |result|
+    PhotoClient.instance.post_photo(title, latitude, longitude, image) do |result|
       block.call(result)
     end
   end
 
   def self.find_all(&block)
-    APIClient.instance.get_photos do |photo|
+    PhotoClient.instance.get_photos do |photo|
       photo.each do |json|
         block.call(self.alloc.initWithJSON(json))
       end

@@ -1,6 +1,6 @@
 BASE_URI = "http://localhost:9292"
 
-class APIClient
+class PhotoClient
   attr_reader :client
 
   def self.instance
