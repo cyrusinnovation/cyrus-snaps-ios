@@ -1,5 +1,5 @@
 class Photo
-  attr_accessor :image, :latitude, :longitude, :title, :url
+  attr_accessor :image, :latitude, :longitude, :title, :url, :uuid
 
   def initWithJSON(json)
     json.each do |k, v|
@@ -27,5 +27,9 @@ class Photo
 
   def valid?
     title != nil && title != '' && image != nil
+  end
+
+  def ==(other)
+    self.uuid != nil && other.uuid != nil && self.uuid == other.uuid
   end
 end

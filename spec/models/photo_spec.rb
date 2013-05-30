@@ -1,6 +1,6 @@
 describe "photo" do
   before do
-    json = {
+    @json = {
       "uuid"         => "9688bed0-6be5-0130-890d-18fe94490886",
       "content_type" => "image/jpeg",
       "file_size"    => 116011,
@@ -13,7 +13,7 @@ describe "photo" do
       "title"        => "Statue of Liberty"
     }
 
-    @photo = Photo.alloc.initWithJSON(json)
+    @photo = Photo.alloc.initWithJSON(@json)
     @photo.image = stub(:image)
   end
 
@@ -28,22 +28,53 @@ describe "photo" do
     @photo.url.should == '/tmp/uploads/9688bed0-6be5-0130-890d-18fe94490886-statue-of-liberty.jpg'
   end
 
-  it "is valid with valid attributes" do
-    @photo.valid?.should == true
+  describe "equality" do
+    it "is equal to another photo if they have the same uuid" do
+      same_photo = Photo.alloc.initWithJSON(@json)
+      @photo.should == same_photo
+    end
+
+    it "is not equal to another photo if uuid's are different" do
+      json = @json
+      json["uuid"] = 'not same uuid'
+      different_photo = Photo.alloc.initWithJSON(json)
+      @photo.should.not == different_photo
+    end
+
+    it "is not equal to another photo if one uuid is nil" do
+      json = @json
+      json["uuid"] = nil
+      different_photo = Photo.alloc.initWithJSON(json)
+      @photo.should.not == different_photo
+    end
+
+    it "is not equal to another photo if both uuid's are nil" do
+      json = @json
+      json["uuid"] = nil
+      different_photo = Photo.alloc.initWithJSON(json)
+      @photo.uuid = nil
+      @photo.should.not == different_photo
+    end
   end
 
-  it "is invalid if title is nil" do
-    @photo.title = nil
-    @photo.valid?.should == false
-  end
+  describe "validations" do
+    it "is valid with valid attributes" do
+      @photo.valid?.should == true
+    end
 
-  it "is invalid if title is blank" do
-    @photo.title = ''
-    @photo.valid?.should == false
-  end
+    it "is invalid if title is nil" do
+      @photo.title = nil
+      @photo.valid?.should == false
+    end
 
-  it "is invalid if image is nil" do
-    @photo.image = nil
-    @photo.valid?.should == false
+    it "is invalid if title is blank" do
+      @photo.title = ''
+      @photo.valid?.should == false
+    end
+
+    it "is invalid if image is nil" do
+      @photo.image = nil
+      @photo.valid?.should == false
+    end
   end
 end
