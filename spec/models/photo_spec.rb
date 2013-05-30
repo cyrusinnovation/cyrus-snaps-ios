@@ -77,4 +77,18 @@ describe "photo" do
       @photo.valid?.should == false
     end
   end
+
+  it "can retrieve all photos from API" do
+    api = mock(:get_photos, :yield => [@json])
+    APIClient.register(:photo_api, api)
+
+    result = [].tap do |r|
+      Photo.find_all do |photo|
+        r << photo
+      end
+    end
+
+    result.size.should == 1
+    result[0].should == Photo.alloc.initWithJSON(@json)
+  end
 end
