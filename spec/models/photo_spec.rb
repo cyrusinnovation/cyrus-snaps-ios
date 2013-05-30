@@ -28,6 +28,20 @@ describe "photo" do
     @photo.url.should == '/tmp/uploads/9688bed0-6be5-0130-890d-18fe94490886-statue-of-liberty.jpg'
   end
 
+  it "can retrieve all photos from API" do
+    api = mock(:get_photos, :yield => [@json])
+    APIClient.register(:photo_api, api)
+
+    result = [].tap do |r|
+      Photo.find_all do |photo|
+        r << photo
+      end
+    end
+
+    result.size.should == 1
+    result[0].should == Photo.alloc.initWithJSON(@json)
+  end
+
   describe "equality" do
     it "is equal to another photo if they have the same uuid" do
       same_photo = Photo.alloc.initWithJSON(@json)
@@ -78,17 +92,24 @@ describe "photo" do
     end
   end
 
-  it "can retrieve all photos from API" do
-    api = mock(:get_photos, :yield => [@json])
-    APIClient.register(:photo_api, api)
+  describe "uploads" do
+    it "uploads a photo if it is valid" do
+      response = stub(:success?, :return => true)
+      api = mock(:post_photo, :yield => response)
+      APIClient.register(:photo_api, api)
 
-    result = [].tap do |r|
-      Photo.find_all do |photo|
-        r << photo
-      end
+      result = nil
+      photo = Photo.alloc.initWithJSON(@json)
+      photo.image = stub(:image)
+      photo.upload { |resp| result = resp }
+      result.success?.should == true
     end
 
-    result.size.should == 1
-    result[0].should == Photo.alloc.initWithJSON(@json)
+    it "does not upload a photo if it is invalid" do
+      result = nil
+      invalid_photo = Photo.alloc.initWithJSON(@json)
+      invalid_photo.upload { |resp| result = resp }
+      result.should == nil
+    end
   end
 end
