@@ -21,6 +21,10 @@ describe "map view controller" do
     @view = view("Map View")
   end
 
+  after do
+    Stump::Mocks.clear!
+  end
+
   it "sets the title" do
     controller.navigationItem.title.should == 'Map'
   end

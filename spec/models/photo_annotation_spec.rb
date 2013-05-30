@@ -10,6 +10,10 @@ describe "photo annotation" do
     @annotation = PhotoAnnotation.alloc.initWithPhoto(fake_photo)
   end
 
+  after do
+    Stump::Mocks.clear!
+  end
+
   it "has coordinates" do
     @annotation.coordinate.latitude.should == 1
     @annotation.coordinate.longitude.should == 2

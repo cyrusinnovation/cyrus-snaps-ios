@@ -17,6 +17,10 @@ describe "photo" do
     @photo.image = stub(:image)
   end
 
+  after do
+    Stump::Mocks.clear!
+  end
+
   it "can be initialized with a JSON object" do
     @photo.latitude.should == 40.6891937255859
     @photo.longitude.should == -74.0444946289062
