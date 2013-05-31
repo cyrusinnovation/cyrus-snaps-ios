@@ -5,11 +5,16 @@ require 'motion-cocoapods'
 require 'afmotion'
 require 'motion-frank'
 require 'motion-stump'
+require 'motion-testflight'
 
 Motion::Project::App.setup do |app|
   # Use `rake config' to see complete project settings.
   app.name = 'cyrus-snaps'
   app.frameworks = ['CoreLocation', 'MapKit']
+
+  app.testflight.sdk = 'vendor/TestFlight'
+  app.testflight.api_token = ENV['TESTFLIGHT_API_TOKEN']
+  app.testflight.team_token = ENV['TESTFLIGHT_TEAM_TOKEN']
 
   app.pods do
     pod 'AFNetworking'
