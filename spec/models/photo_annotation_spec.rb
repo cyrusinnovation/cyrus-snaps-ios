@@ -24,6 +24,10 @@ describe "photo annotation" do
   end
 
   it "has a url" do
+    api = Object.tap do |obj|
+      obj.stub!(:base_uri, :return => 'http://localhost:9292')
+    end
+    APIClient.register(:photo_api, api)
     @annotation.url.absoluteString.should == 'http://localhost:9292/some/url'
   end
 

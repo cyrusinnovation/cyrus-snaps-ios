@@ -11,7 +11,9 @@ Motion::Project::App.setup do |app|
   # Use `rake config' to see complete project settings.
   app.name = 'cyrus-snaps'
   app.frameworks = ['CoreLocation', 'MapKit']
+  app.info_plist['BASE_URL'] = ENV['BASE_URL']
 
+  # TestFlight
   app.testflight.sdk = 'vendor/TestFlight'
   app.testflight.api_token = ENV['TESTFLIGHT_API_TOKEN']
   app.testflight.team_token = ENV['TESTFLIGHT_TEAM_TOKEN']

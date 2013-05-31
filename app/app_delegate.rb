@@ -2,7 +2,8 @@ class AppDelegate
   def application(application, didFinishLaunchingWithOptions: launchOptions)
     return true if RUBYMOTION_ENV == 'test'
 
-    APIClient.register(:photo_api, PhotoClient.new)
+    base_url = NSBundle.mainBundle.objectForInfoDictionaryKey('BASE_URL')
+    APIClient.register(:photo_api, PhotoClient.new(base_url))
 
     @window = UIWindow.alloc.init.tap do |w|
       w.frame = UIScreen.mainScreen.bounds

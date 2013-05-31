@@ -1,13 +1,12 @@
-BASE_URI = "http://localhost:9292"
-
 class PhotoClient
-  attr_reader :client
+  attr_reader :client, :base_uri
 
   def self.instance
     @client ||= self.new
   end
 
-  def initialize(base_uri=BASE_URI)
+  def initialize(base_uri)
+    @base_uri = base_uri
     @client = AFMotion::Client.build_shared(base_uri) do
       header "Accept", "application/json"
       operation :json

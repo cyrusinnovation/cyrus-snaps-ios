@@ -15,6 +15,6 @@ class PhotoAnnotation
   end
 
   def url
-    NSURL.URLWithString(BASE_URI + photo.url)
+    NSURL.URLWithString(APIClient.for(:photo_api).base_uri + photo.url)
   end
 end
