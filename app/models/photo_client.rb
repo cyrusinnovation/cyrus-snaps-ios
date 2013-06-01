@@ -1,12 +1,11 @@
 class PhotoClient
-  attr_reader :client, :base_uri
+  attr_reader :client
 
   def self.instance
     @client ||= self.new
   end
 
   def initialize(base_uri)
-    @base_uri = base_uri
     @client = AFMotion::Client.build_shared(base_uri) do
       header "Accept", "application/json"
       operation :json
