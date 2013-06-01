@@ -17,6 +17,7 @@ Motion::Project::App.setup do |app|
   app.testflight.sdk = 'vendor/TestFlight'
   app.testflight.api_token = ENV['TESTFLIGHT_API_TOKEN']
   app.testflight.team_token = ENV['TESTFLIGHT_TEAM_TOKEN']
+  app.testflight.app_token = ENV['TESTFLIGHT_APP_TOKEN']
 
   app.pods do
     pod 'AFNetworking'
