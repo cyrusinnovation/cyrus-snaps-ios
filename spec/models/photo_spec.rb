@@ -101,6 +101,7 @@ describe "photo" do
       result = nil
       photo = Photo.alloc.initWithJSON(@json)
       photo.image = stub(:image)
+      photo.stub!(:scaled_image)
       photo.upload { |resp| result = resp }
       result.success?.should == true
     end
@@ -110,6 +111,26 @@ describe "photo" do
       invalid_photo = Photo.alloc.initWithJSON(@json)
       invalid_photo.upload { |resp| result = resp }
       result.should == nil
+    end
+  end
+
+  describe "image scaling" do
+    before do
+      @photo = Photo.alloc.initWithJSON(@json)
+    end
+
+    it "scales portrait images" do
+      filename  = File.expand_path("../../resources/portrait.png", __FILE__)
+      @photo.image = UIImage.alloc.initWithContentsOfFile(filename)
+      @photo.scaled_image.size.width.should == 240.0
+      @photo.scaled_image.size.height.should == 320.0
+    end
+
+    it "scales landscape images" do
+      filename = File.expand_path("../../resources/landscape.png", __FILE__)
+      @photo.image = UIImage.alloc.initWithContentsOfFile(filename)
+      @photo.scaled_image.size.width.should == 320.0
+      @photo.scaled_image.size.height.should == 240.0
     end
   end
 end
