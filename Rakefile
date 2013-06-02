@@ -11,6 +11,8 @@ Motion::Project::App.setup do |app|
   # Use `rake config' to see complete project settings.
   app.name = 'cyrus-snaps'
   app.frameworks = ['CoreLocation', 'MapKit']
+
+  puts "Setting BASE_URL to #{ENV['BASE_URL']}"
   app.info_plist['BASE_URL'] = ENV['BASE_URL']
 
   # TestFlight
