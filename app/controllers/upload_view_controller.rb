@@ -34,9 +34,9 @@ class UploadViewController < CyrusSnapsViewController
       else
         puts("FAILURE!!! #{response.error.localizedDescription}")
       end
-    end
 
-    activity.stopAnimating
+      activity.stopAnimating
+    end
   end
 
   def imagePickerController(picker, didFinishPickingMediaWithInfo: info)
